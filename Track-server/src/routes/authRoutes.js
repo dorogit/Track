@@ -2,7 +2,8 @@ const express = require('express')
 const mongoose = require('mongoose')
 const User = mongoose.model('User')
 const router = express.Router()
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
+const { compare } = require('bcryptjs');
 
 router.post('/signup', async (req,res) => {
   const { email, password } = req.body
@@ -18,6 +19,34 @@ router.post('/signup', async (req,res) => {
   } catch (err) {
     return (
       res.sendStatus(422).send(err.message)
+    )
+  }
+
+})
+
+router.post('/signin', async (req, res) => {
+  const { email, password } = req.body
+
+  if (!email || !password) {
+    return res.sendStatus(422).send({ error: "Missing password or Email" })
+  }
+
+  const user = await User.findOne({ email })
+  console.log(user)
+
+  if (!user) {
+    return res.sendStatus(404).send("Invalid password or email")
+  }
+
+  try {
+    console.log(password, user.password)
+    await user.comparePasswords(password)
+    console.log(user)
+    const token = jwt.sign( { userId: user._id }, "RANDOM" )
+    return res.send({ token: token })
+  } catch (err) {
+    return (
+      res.sendStatus(404).send({ error: "Invalid password or email" })
     )
   }
 
