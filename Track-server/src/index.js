@@ -1,7 +1,8 @@
+require('./models/User')
 const mongoose = require('mongoose')
 const express = require('express')
 const authRoutes = require('./routes/authRoutes')
-
+const requireAuth = require('./middleware/requrieAuth')
 const mongoUri = 'mongodb+srv://ishaanjainlock10:0810200A@cluster0.7gmouvx.mongodb.net/?retryWrites=true&w=majority'
 
 mongoose.connect(mongoUri)
@@ -18,8 +19,8 @@ app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes)
 
-app.get('/', (req,res) => {
-  res.send('Hello! My first message from express API!!!')
+app.get('/', requireAuth ,(req,res) => {
+  res.send(`Your email is ${req.user.email}`)
 })
 
 app.listen(3000, () => {
