@@ -38,14 +38,16 @@ userSchema.methods.comparePassword = function(candidatePassword) {
   return new Promise((resolve, reject) => {
     bcrypt.compare(candidatePassword, user.password, (err, isMatch) => {
       if (err) {
-        return reject(err)
+        return reject(err);
       }
+
       if (!isMatch) {
-        return reject(err)
+        return reject(false);
       }
-      resolve(true)
-    })
-  })
+
+      resolve(true);
+    });
+  });
 }
 
 mongoose.model('User', userSchema)
