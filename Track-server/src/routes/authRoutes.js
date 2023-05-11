@@ -32,24 +32,20 @@ router.post('/signin', async (req, res) => {
   }
 
   const user = await User.findOne({ email })
-  console.log(user)
 
   if (!user) {
     return res.sendStatus(404).send("Invalid password or email")
   }
 
   try {
-    console.log(password, user.password)
-    await user.comparePasswords(password)
-    console.log(user)
+    await user.comparePassword(password)
     const token = jwt.sign( { userId: user._id }, "RANDOM" )
-    return res.send({ token: token })
+    res.send({ token: token })
   } catch (err) {
-    return (
-      res.sendStatus(404).send({ error: "Invalid password or email" })
-    )
+    return res.sendStatus(404).send({ error: "Invalid password or email" })
   }
 
 })
+
 
 module.exports = router
