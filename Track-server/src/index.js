@@ -3,7 +3,7 @@ require('./models/Track')
 const mongoose = require('mongoose')
 const express = require('express')
 const authRoutes = require('./routes/authRoutes')
-const requireAuth = require('./middleware/requrieAuth')
+const requireAuth = require('./middleware/requireAuth')
 const trackRoutes = require('./routes/trackRoute')
 const mongoUri = 'mongodb+srv://ishaanjainlock10:0810200A@cluster0.7gmouvx.mongodb.net/?retryWrites=true&w=majority'
 
