@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { View,StyleSheet } from "react-native";
-import Spacer from "../components/spacer";
-import { Text,Input,Button } from '@rneui/themed';
+import { Text,Input,Button,Image } from '@rneui/themed';
+import Spacer from "../components/Spacer";
 
 const SignIn = ({ navigation }) => {
     const [Email, setEmail] = useState('')
@@ -27,6 +27,7 @@ const SignIn = ({ navigation }) => {
            <Spacer>
                 <Button onPress={() =>  navigation.navigate("TabFlow")} title = "Sign In" />
            </Spacer>
+           <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />
         </View>
     )
 }
@@ -35,10 +36,15 @@ const styles = StyleSheet.create({
     viewStyle: {
         flex:1,
         justifyContent:'center',
-        marginBottom:"40%"
     },
     headerStyle: {
         alignSelf:"center"
+    },
+    iconStyle:{
+        width:220,
+        height:220,
+        marginHorizontal:'25%',
+        marginTop:'10%'
     }
 })
 
