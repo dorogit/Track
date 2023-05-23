@@ -12,24 +12,6 @@ import { createMaterialBottomTabNavigator } from '@react-navigation/material-bot
 const LoginFlow = createNativeStackNavigator()
 const Tab = createMaterialBottomTabNavigator()
 
-const AppFlow = ({ isLoggedIn }) => {
-  isLoggedIn ? (
-  <LoginFlow.Navigator initialRouteName="TabFlow">
-    <LoginFlow.Screen name = "SignIn" component={SignIn} />
-    <LoginFlow.Screen name = "SignUp" component={SignUp} />
-    <LoginFlow.Screen name = "TabFlow" component={HomeStack} />
-    <LoginFlow.Navigator name = "Detail" component={DetailScreen} />
-  </LoginFlow.Navigator>
-  ) : (
-  <LoginFlow.Navigator initialRouteName="TabFlow">
-    <LoginFlow.Screen name = "SignIn" component={SignIn} />
-    <LoginFlow.Screen name = "SignUp" component={SignUp} />
-    <LoginFlow.Screen name = "TabFlow" component={HomeStack} />
-    <LoginFlow.Navigator name = "Detail" component={DetailScreen} />
-  </LoginFlow.Navigator>
-  )
-}
-
 const HomeStack = () => (
   <Tab.Navigator>
     <Tab.Screen name = "List" component={ListScreen} />
@@ -39,7 +21,6 @@ const HomeStack = () => (
 )
 
 const App = () => {
-  const isLoggedIn = true
   return (
     <NavigationContainer>
       <LoginFlow.Navigator>

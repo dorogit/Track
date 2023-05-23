@@ -1,4 +1,5 @@
 import createDataContext from "./createDataContext";
+import tracker from "../api/tracker";
 
 const trackReducer = (action, state) => {
   switch (action.type) {
@@ -15,6 +16,10 @@ const signIn = () => {
   //send to reducer
   // handle success by state update
   //handle failure by showing error
+}
+
+const signUp = () => {
+  tracker.post('/signup')
 }
 
 const signOut = () =>{
