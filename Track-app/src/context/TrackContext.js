@@ -3,11 +3,22 @@ import tracker from "../api/tracker";
 
 const trackReducer = (action, state) => {
   switch (action.type) {
-    case "ADD_TRACK":
-      return [...state, action.payload]
-  
+    case "SIGN_UP":
+      console.log(action.payload)
     default:
       break;
+  }
+}
+
+const signUp = (dispatch) => {
+  return async ( {email, password} ) => {
+    try {
+      const response = await tracker.post('/signup', {email:email,password:password})
+      console.log(response.data)
+      dispatch({ type: "SIGN_UP", payload: response.data.token })
+    } catch (error) {
+      console.log(error)
+    }
   }
 }
 
@@ -18,10 +29,6 @@ const signIn = () => {
   //handle failure by showing error
 }
 
-const signUp = () => {
-  tracker.post('/signup')
-}
-
 const signOut = () =>{
   // get a {email, password}
   //handle success by updating state to IF user is signed in
@@ -29,6 +36,6 @@ const signOut = () =>{
 
 export const {Context, Provider} = createDataContext(
   trackReducer,
-  { addTrack },
+  { signUp },
   []
 )

@@ -1,11 +1,13 @@
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useState,useContext } from "react";
 import { View,StyleSheet } from "react-native";
 import { Text,Input,Button,Image } from '@rneui/themed';
 import Spacer from "../components/Spacer";
+import { Context } from "../context/TrackContext";
 
 const SignIn = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
+    const { signUp } = useContext(Context)
     
     useEffect(() => {
         navigation.setOptions({
@@ -25,7 +27,7 @@ const SignIn = ({ navigation }) => {
                 <Input secureTextEntry autoCapitalize="none" autoCorrect={false} value={Password} onChangeText={(text) => setPassword(text)} label = "Password" />
            </Spacer>
            <Spacer>
-                <Button onPress={() =>  navigation.navigate("TabFlow")} title = "Sign In" />
+                <Button title="Sign In" onPress={() =>  signUp({email:Email, password: Password}) } /> 
            </Spacer>
            <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />
         </View>

@@ -11,7 +11,7 @@ export default (reducer, actions, initialState)  => {
     const boundActions = {}
 
     for (let action in actions) {
-      boundActions[action] = actions[actions](dispatch)
+      boundActions[action] = actions[action](dispatch)
     }
 
     return (

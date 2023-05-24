@@ -8,6 +8,7 @@ import AccountScreen from "./src/screens/AccountScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
 import { createMaterialBottomTabNavigator } from '@react-navigation/material-bottom-tabs';
+import { Provider } from "./src/context/TrackContext";
 
 const LoginFlow = createNativeStackNavigator()
 const Tab = createMaterialBottomTabNavigator()
@@ -33,4 +34,10 @@ const App = () => {
   )
 }
 
-export default App
+export default () => {
+  return (
+    <Provider>
+      <App />
+    </Provider>
+  )
+}
