@@ -4,24 +4,19 @@ const User = mongoose.model('User')
 const router = express.Router()
 const jwt = require('jsonwebtoken');
 
-router.post('/signup', async (req,res) => {
-  const { email, password } = req.body
+router.post('/signup', async (req, res) => {
+  const { email, password } = req.body;
 
   try {
+    const user = new User({ email, password });
+    await user.save();
 
-    const user = new User({ email,password })
-    await user.save()
-
-    const token = jwt.sign( { userId: user._id }, "RANDOM" )
-    res.send({token:token})
-
+    const token = jwt.sign({ userId: user._id }, "RANDOM");
+    res.send({ token: token });
   } catch (err) {
-    return (
-      res.sendStatus(422).send(err.message)
-    )
+    res.status(422).send(err.message);
   }
-
-})
+});
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body
@@ -39,7 +34,7 @@ router.post('/signin', async (req, res) => {
   try {
     await user.comparePassword(password)
     const token = jwt.sign( { userId: user._id }, "RANDOM" )
-    res.send({ token: token })
+    res.send({ token: token, message:"success!!" })
   } catch (err) {
     return res.send({ error: "Invalid password or email" })
   }

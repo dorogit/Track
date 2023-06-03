@@ -6,6 +6,7 @@ const authRoutes = require('./routes/authRoutes')
 const requireAuth = require('./middleware/requireAuth')
 const trackRoutes = require('./routes/trackRoute')
 const mongoUri = 'mongodb+srv://ishaanjainlock10:0810200A@cluster0.7gmouvx.mongodb.net/?retryWrites=true&w=majority'
+const cors = require('cors')
 
 mongoose.connect(mongoUri)
 mongoose.connection.on('connected',() => {
@@ -17,6 +18,7 @@ mongoose.connection.on('error', (err) => {
 
 const app = express()
 
+app.use(cors())
 app.use(express.json())
 app.use(express.urlencoded({ extended: true }));
 app.use(authRoutes)

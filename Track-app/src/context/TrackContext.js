@@ -6,7 +6,7 @@ const trackReducer = (action, state) => {
     case "SIGN_UP":
       console.log(action.payload)
     default:
-      break;
+      return state
   }
 }
 

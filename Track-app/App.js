@@ -25,8 +25,8 @@ const App = () => {
   return (
     <NavigationContainer>
       <LoginFlow.Navigator>
-        <LoginFlow.Screen name = "SignIn" component={SignIn} />
-        <LoginFlow.Screen name = "SignUp" component={SignUp} />
+        <LoginFlow.Screen name = "SignUp" component={SignIn} />
+        <LoginFlow.Screen name = "SignIn" component={SignUp} />
         <LoginFlow.Screen name = "TabFlow" component={HomeStack} />
         <LoginFlow.Screen name = "Detail" component={DetailScreen} />
       </LoginFlow.Navigator>

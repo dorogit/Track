@@ -18,7 +18,7 @@ const SignIn = ({ navigation }) => {
     return (
         <View style = {styles.viewStyle}>
            <Spacer>
-                <Text style={styles.headerStyle} h3>Sign in to use Tracks!</Text>
+                <Text style={styles.headerStyle} h3>Sign Up to use Tracks!</Text>
            </Spacer>
            <Spacer>
                 <Input autoCapitalize="none" autoCorrect={false} value={Email} onChangeText={(text) => setEmail(text)} label = "Email" />
