@@ -7,7 +7,7 @@ import { Context } from "../context/TrackContext";
 const SignUp = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const { signUp } = useContext(Context)
+    const { signUp,signIn } = useContext(Context)
     
     useEffect(() => {
         navigation.setOptions({
@@ -18,7 +18,7 @@ const SignUp = ({ navigation }) => {
     return (
         <View style = {styles.viewStyle}>
            <Spacer>
-                <Text style={styles.headerStyle} h3>Sign Up to use Tracks!</Text>
+                <Text style={styles.headerStyle} h3>Sign Up to use Tracks!11</Text>
            </Spacer>
            <Spacer>
                 <Input autoCapitalize="none" autoCorrect={false} value={Email} onChangeText={(text) => setEmail(text)} label = "Email" />
@@ -29,7 +29,9 @@ const SignUp = ({ navigation }) => {
            <Spacer>
                 <Button title="Sign In" onPress={() =>  signUp({email:Email, password: Password}) } /> 
            </Spacer>
-           <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />
+           <View style={{alignSelf:"center"}}>
+                <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />
+           </View>
         </View>
     )
 }
@@ -45,8 +47,6 @@ const styles = StyleSheet.create({
     iconStyle:{
         width:220,
         height:220,
-        marginTop:'10%',
-        alignSelf:"center"
     }
 })
 

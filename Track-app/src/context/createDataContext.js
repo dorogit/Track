@@ -13,7 +13,6 @@ export default (reducer, actions, initialState)  => {
     for (let action in actions) {
       boundActions[action] = actions[action](dispatch)
     }
-
     return (
       <Context.Provider value={{state,...boundActions}} >
         {children}

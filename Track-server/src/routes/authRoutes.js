@@ -13,6 +13,8 @@ router.post('/signup', async (req, res) => {
 
     const token = jwt.sign({ userId: user._id }, "RANDOM");
     res.send({ token: token });
+    console.log(token)
+    console.log("klasdad")
   } catch (err) {
     res.status(422).send(err.message);
   }
