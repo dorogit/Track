@@ -7,8 +7,8 @@ import { Context } from "../context/TrackContext";
 const SignIn = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const { signIn, errorMessage } = useContext(Context)
-    
+    const { signIn, state } = useContext(Context)
+    console.log(state.errorMessage,"this is err")
     useEffect(() => {
         navigation.setOptions({
             header: () => null
@@ -26,14 +26,14 @@ const SignIn = ({ navigation }) => {
            <Spacer>
                 <Input secureTextEntry autoCapitalize="none" autoCorrect={false} value={Password} onChangeText={(text) => setPassword(text)} label = "Password" />
            </Spacer>
-           {errorMessage ? <Text style = {{alignSelf:"center", color:"red"}} >{errorMessage}</Text> : null}
+           {state.errorMessage ? <Text style = {{alignSelf:"center", color:"red"}} >{state.errorMessage}</Text> : null}
            <TouchableOpacity style = {{alignSelf:"center"}} onPress={() => navigation.navigate('SignUp')}>
-                <Text>
+                <Text style={{color:"#007fff"}}>
                     Don't have an account? Sign Up instead!
                 </Text>
             </TouchableOpacity>
            <Spacer>
-                <Button title="Sign In" onPress={() =>  signIn({email:Email, password: Password, callback: navigation.navigate('TabFlow')}) } /> 
+                <Button title="Sign In" onPress={() =>  signIn({email:Email, password: Password, callback: () => navigation.navigate('TabFlow')}) } /> 
            </Spacer>
            <View style ={{alignItems:"center"}}>
                 <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />

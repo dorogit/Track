@@ -7,7 +7,8 @@ import { Context } from "../context/TrackContext";
 const SignUp = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const { signUp } = useContext(Context)
+    const { signUp,state } = useContext(Context)
+    console.log(state.errorMessage,"is state err")
     
     useEffect(() => {
         navigation.setOptions({
@@ -26,13 +27,14 @@ const SignUp = ({ navigation }) => {
            <Spacer>
                 <Input secureTextEntry autoCapitalize="none" autoCorrect={false} value={Password} onChangeText={(text) => setPassword(text)} label = "Password" />
            </Spacer>
-            <TouchableOpacity style = {{alignSelf:"center"}} onPress={() => navigation.navigate('SignIn')}>
-                <Text>
+           {state.errorMessage ? (<Text style = {{alignSelf:"center", color:"red"}} >{state.errorMessage}</Text>): null}
+           <TouchableOpacity style = {{alignSelf:"center"}} onPress={() => navigation.navigate('SignIn')}>
+                <Text style={{color:"#007fff"}}>
                     Already have an account? Sign in instead!
                 </Text>
-            </TouchableOpacity>
+           </TouchableOpacity>
            <Spacer>
-                <Button title="Sign In" onPress={() =>  signUp({email:Email, password: Password, callback: navigation.navigate('SignIn')}) } /> 
+                <Button title="Sign Up" onPress={() =>  signUp({email:Email, password: Password, callback: () => navigation.navigate('SignIn')}) } /> 
            </Spacer>
            
            <View style={{alignSelf:"center"}}>
