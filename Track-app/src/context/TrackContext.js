@@ -15,14 +15,12 @@ const trackReducer = (action, state) => {
 }
 
 const signUp = (dispatch) => {
-  return async ( {email, password} ) => {
+  return async ( {email, password, callback} ) => {
     try {
       const response = await tracker.post('/signup', {email:email,password:password})
       await AsyncStorage.setItem('token', response.data.token)
-      const token = await AsyncStorage.getItem('token')
-      console.log(token)
-      console.log(response.data.token)
       dispatch({ type: "SIGN_UP", payload: response.data.token })
+      callback()
     } catch (error) {
       console.log(error)
     }

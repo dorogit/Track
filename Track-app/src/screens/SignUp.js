@@ -7,7 +7,7 @@ import { Context } from "../context/TrackContext";
 const SignUp = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const { signUp,signIn } = useContext(Context)
+    const { signUp } = useContext(Context)
     
     useEffect(() => {
         navigation.setOptions({
@@ -27,7 +27,7 @@ const SignUp = ({ navigation }) => {
                 <Input secureTextEntry autoCapitalize="none" autoCorrect={false} value={Password} onChangeText={(text) => setPassword(text)} label = "Password" />
            </Spacer>
            <Spacer>
-                <Button title="Sign In" onPress={() =>  signUp({email:Email, password: Password}) } /> 
+                <Button title="Sign In" onPress={() =>  signUp({email:Email, password: Password, callback: navigation.navigate('SignIn')}) } /> 
            </Spacer>
            <View style={{alignSelf:"center"}}>
                 <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />
