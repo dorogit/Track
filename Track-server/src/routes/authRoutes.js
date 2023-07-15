@@ -14,14 +14,17 @@ router.post('/signup', async (req, res) => {
     const token = jwt.sign({ userId: user._id }, "RANDOM");
     res.send({ token: token });
     console.log(token)
-    console.log("klasdad")
+    console.log("sign up success")
   } catch (err) {
+    console.log("sign up failed")
     res.status(422).send(err.message);
   }
 });
 
 router.post('/signin', async (req, res) => {
   const { email, password } = req.body
+  console.log(req)
+  console.log(req.body)
 
   if (!email || !password) {
     return res.send({ error: "Missing password or Email" })
@@ -37,8 +40,10 @@ router.post('/signin', async (req, res) => {
     await user.comparePassword(password)
     const token = jwt.sign( { userId: user._id }, "RANDOM" )
     res.send({ token: token, message:"success!!" })
+    console.log("sign in success")
   } catch (err) {
-    return res.send({ error: "Invalid password or email" })
+    console.log("sign in failed")
+    res.send({ error: "Invalid password or email" })
   }
 
 }) //testing

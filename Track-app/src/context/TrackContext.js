@@ -9,6 +9,8 @@ const trackReducer = (action, state) => {
       return {...state, token:action.payload}
     case "SIGN_IN":
       console.log(action.payload)
+    case "ADD_ERROR":
+      return {...state, errorMessage:action.payload}
     default:
       return state
   }
@@ -18,32 +20,30 @@ const signUp = (dispatch) => {
   return async ( {email, password, callback} ) => {
     try {
       const response = await tracker.post('/signup', {email:email,password:password})
+      console.log(response.data.token)
       await AsyncStorage.setItem('token', response.data.token)
       dispatch({ type: "SIGN_UP", payload: response.data.token })
       callback()
     } catch (error) {
       console.log(error)
+      dispatch({ type: "ADD_ERROR", payload: "Something went wrong" })
     }
   }
 }
 
 const signIn = (dispatch) => {
-  return async ( {email, password} ) => {
+  return async ( {email, password, callback} ) => {
     const token = await AsyncStorage.getItem('token')
     console.log(token)
     try {
-      const response = await tracker.post('/signin', {
-        headers:{
-          authorization:`bearer ${token}`
-        },
-      body:{
-        "email":email,
-        "password":password
-      }
-      })
+      const response = await tracker.post('/signin',{"email":email,"password":password})
+      console.log(response)
+      await AsyncStorage.setItem('token', response.data.token)
       dispatch({ type: "SIGN_UP", payload: response.data.token })
+      callback()
     } catch (error) {
       console.log(error)
+      dispatch({ type: "ADD_ERROR", payload: "Something went wrong" })
     }
   }
 }

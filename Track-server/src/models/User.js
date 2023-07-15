@@ -27,7 +27,6 @@ userSchema.pre('save',  function (next) {
         return next(err)
       }
       user.password = hash;
-      console.log(user.password)
       next()
     })
   })
@@ -44,7 +43,6 @@ userSchema.methods.comparePassword = function(candidatePassword) {
       if (!isMatch) {
         return reject(false);
       }
-
       resolve(true);
     });
   });

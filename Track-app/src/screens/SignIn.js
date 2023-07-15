@@ -1,5 +1,5 @@
 import React, { useEffect, useState,useContext } from "react";
-import { View,StyleSheet } from "react-native";
+import { View,StyleSheet,TouchableOpacity } from "react-native";
 import { Text,Input,Button,Image } from '@rneui/themed';
 import Spacer from "../components/Spacer";
 import { Context } from "../context/TrackContext";
@@ -7,7 +7,7 @@ import { Context } from "../context/TrackContext";
 const SignIn = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const { signIn, state } = useContext(Context)
+    const { signIn, errorMessage } = useContext(Context)
     
     useEffect(() => {
         navigation.setOptions({
@@ -26,8 +26,14 @@ const SignIn = ({ navigation }) => {
            <Spacer>
                 <Input secureTextEntry autoCapitalize="none" autoCorrect={false} value={Password} onChangeText={(text) => setPassword(text)} label = "Password" />
            </Spacer>
+           {errorMessage ? <Text style = {{alignSelf:"center", color:"red"}} >{errorMessage}</Text> : null}
+           <TouchableOpacity style = {{alignSelf:"center"}} onPress={() => navigation.navigate('SignUp')}>
+                <Text>
+                    Don't have an account? Sign Up instead!
+                </Text>
+            </TouchableOpacity>
            <Spacer>
-                <Button title="Sign In" onPress={() =>  signIn({email:Email, password: Password}) } /> 
+                <Button title="Sign In" onPress={() =>  signIn({email:Email, password: Password, callback: navigation.navigate('TabFlow')}) } /> 
            </Spacer>
            <View style ={{alignItems:"center"}}>
                 <Image style = {styles.iconStyle} source={{uri:'https://cdn.discordapp.com/attachments/681407660721176596/1110118152962052096/track.png'}} />
