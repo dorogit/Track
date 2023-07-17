@@ -14,7 +14,9 @@ const trackReducer = (action, state) => {
       console.log(action.payload, "is err payload");
       return { ...state, errorMessage: action.payload };
     case "CLEAR_ERROR_MESSAGE":
-      return {...state,errorMessage:""}
+      return {...state, errorMessage:""}
+    case "SIGN_OUT":
+      return {...state, token:null}
     default:
       return state;
   }
@@ -72,9 +74,13 @@ const tryLocalSignIn = (dispatch) => {
   }
 }
 
-const signOut = () =>{
-  // get a {email, password}
-  //handle success by updating state to IF user is signed in
+const signOut = (dispatch) =>{
+  return async ({navigate}) => {
+    await AsyncStorage.removeItem('token')
+    console.log("signed out and token removed!")
+    dispatch({ type:"SIGN_OUT" })
+    navigate('SignIn')
+  }
 }
 
 const clearErrorMessage = (dispatch) => {
@@ -85,6 +91,6 @@ const clearErrorMessage = (dispatch) => {
 
 export const {Context, Provider} = createDataContext(
   trackReducer,
-  { signUp,signIn,clearErrorMessage,tryLocalSignIn },
+  { signUp,signIn,clearErrorMessage,tryLocalSignIn,signOut },
   {token:null, errorMessage:""}
 )
