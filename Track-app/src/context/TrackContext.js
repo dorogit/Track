@@ -13,6 +13,8 @@ const trackReducer = (action, state) => {
     case "ADD_ERROR":
       console.log(action.payload, "is err payload");
       return { ...state, errorMessage: action.payload };
+    case "CLEAR_ERROR_MESSAGE":
+      return {...state,errorMessage:""}
     default:
       return state;
   }
@@ -28,7 +30,7 @@ const signUp = (dispatch) => {
       console.log("dispatched sign up lol");
       callback();
     } catch (error) {
-      console.log("sign up failedm dispatched err", error); // Pass the error to the console.log statement
+      console.log("sign up failed dispatched err", error); // Pass the error to the console.log statement
       dispatch({ type: "ADD_ERROR", payload: "Something went wrong" });
     }
   };
@@ -61,8 +63,14 @@ const signOut = () =>{
   //handle success by updating state to IF user is signed in
 }
 
+const clearErrorMessage = (dispatch) => {
+  return () => {
+    dispatch({type:"CLEAR_ERROR_MESSAGE"})
+  }
+}
+
 export const {Context, Provider} = createDataContext(
   trackReducer,
-  { signUp,signIn },
+  { signUp,signIn,clearErrorMessage },
   {token:null, errorMessage:""}
 )

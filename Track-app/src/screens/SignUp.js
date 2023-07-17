@@ -7,14 +7,19 @@ import { Context } from "../context/TrackContext";
 const SignUp = ({ navigation }) => {
     const [Email, setEmail] = useState('')
     const [Password, setPassword] = useState('')
-    const { signUp,state } = useContext(Context)
+    const { signUp,state,clearErrorMessage } = useContext(Context)
     console.log(state.errorMessage,"is state err")
     
     useEffect(() => {
         navigation.setOptions({
             header: () => null
         })
-    })
+        const unsubscribe = navigation.addListener('focus', () => {
+            clearErrorMessage()
+        });   
+        
+        return unsubscribe
+    },[navigation])
 
     return (
         <View style = {styles.viewStyle}>
