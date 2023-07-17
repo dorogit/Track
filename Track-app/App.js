@@ -4,6 +4,7 @@ import SignIn from "./src/screens/SignIn";
 import CreateScreen from "./src/screens/CreateScreen";
 import DetailScreen from "./src/screens/DetailScreen";
 import ListScreen from "./src/screens/ListScreen";
+import ResolveAuth from "./src/screens/ResolveAuth";
 import AccountScreen from "./src/screens/AccountScreen";
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import { NavigationContainer } from '@react-navigation/native';
@@ -25,6 +26,7 @@ const App = () => {
   return (
     <NavigationContainer>
       <LoginFlow.Navigator>
+        <LoginFlow.Screen name = "Resolve" component={ResolveAuth} />
         <LoginFlow.Screen name = "SignUp" component={SignUp} />
         <LoginFlow.Screen name = "SignIn" component={SignIn} />
         <LoginFlow.Screen name = "TabFlow" component={HomeStack} />

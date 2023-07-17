@@ -58,6 +58,20 @@ const signIn = (dispatch) => {
   }
 }
 
+const tryLocalSignIn = (dispatch) => {
+  return async ({navigate}) => {
+    const token = await AsyncStorage.getItem('token') 
+    if (token) {
+      console.log("signed in automatically")
+      dispatch({ type:"SIGN_IN",payload:token })
+      navigate('TabFlow')
+    } else {
+      console.log("token not found going to signup")
+      navigate('SignUp')
+    }
+  }
+}
+
 const signOut = () =>{
   // get a {email, password}
   //handle success by updating state to IF user is signed in
@@ -71,6 +85,6 @@ const clearErrorMessage = (dispatch) => {
 
 export const {Context, Provider} = createDataContext(
   trackReducer,
-  { signUp,signIn,clearErrorMessage },
+  { signUp,signIn,clearErrorMessage,tryLocalSignIn },
   {token:null, errorMessage:""}
 )
