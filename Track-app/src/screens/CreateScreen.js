@@ -1,31 +1,33 @@
-import React from 'react';
+import React,{useEffect,useState} from 'react';
 import { StyleSheet,SafeAreaView } from 'react-native';
 import { Text } from 'react-native-elements';
-import MapView, {Polyline} from 'react-native-maps';
+import Map from '../components/Map';
+import { requestForegroundPermissionsAsync } from 'expo-location';
+import '../_mockLocation'
 
 const CreateScreen = () => {
+  const [err, setErr] = useState(null)
+  const startWatching = async () =>{
+    try {
+      const { granted } = await requestForegroundPermissionsAsync();
+      if (!granted) {
+        throw new Error('Location permissions not granted!')
+      }
+    } catch (error) {
+      setErr(error)
+    }
+  }
+  useEffect(() => {
+    startWatching()
+  }, [])
   return (
     <SafeAreaView forceInset={{ top: 'always' }}>
-      <Text h2>Create a Track</Text>
-      <MapView
-      style={styles.map}
-      initialRegion={{
-        latitude: 28.4598397,
-        longitude: 77.0308019,
-        latitudeDelta: 0.01,
-        longitudeDelta: 0.01
-      }}
-    />
+      {err ? <Text> Please enable location permissions</Text> : null}
+      <Text style={{alignSelf:"center"}} h2>Create a Track!</Text>
+      <Map />
     </SafeAreaView>
   );
 };
-
-const styles = StyleSheet.create({
-    map:{
-        width:"100%",
-        height:"100%"
-    }
-});
 
 export default CreateScreen;
 
